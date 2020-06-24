@@ -1,0 +1,7 @@
+{
+  "name": "taxcontrol",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
