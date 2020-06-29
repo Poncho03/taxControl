@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Inicio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="exitConfirm()" color="danger">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+  <ion-item *ngFor="let user of data" [routerLink]="['/detalles/', user.id]" detail>
+    <ion-icon slot="start" name="person-sharp"></ion-icon>
+    <ion-label>
+      <h2>{{user.nombre}}</h2>
+      <p>Unidad: {{user.unidad}}</p>
+    </ion-label>
+  </ion-item>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <p class="ion-text-center">{{email}}</p>
+  </ion-toolbar>
+</ion-footer>
