@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../interface/user'
 import { AngularFireAuth } from '@angular/fire/auth';
 import { ToastController, LoadingController, NavController } from '@ionic/angular';
-import { Local } from 'protractor/built/driverProviders';
 
 @Component({
   selector: 'app-login',

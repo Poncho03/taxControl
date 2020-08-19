@@ -12,6 +12,7 @@ export class InicioPage implements OnInit {
 
   email: string = '';
   data: any;
+  numdat: number = 0;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -62,6 +63,7 @@ export class InicioPage implements OnInit {
     loader.present();
     try{
       this.firestore.collection("usuarios").snapshotChanges().subscribe( data => {
+        this.numdat = data.length;
         this.data = data.map( e => {
           return{
             id: e.payload.doc.id,
@@ -85,14 +87,46 @@ export class InicioPage implements OnInit {
       message: 'Estas a punto de salir de la sesión, ¿desea continuar?',
       buttons: [
         { text: 'Cancelar', role: 'cancel' },
-        { text: 'Continuar',
+        { text: 'Salir',
           handler: () => {
-            this.singOut()
+            this.singOut();
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  async delete(id: string){
+    let loader = this.loadingCtrl.create({
+      message: 'Eliminando usuario'
+    });
+    (await loader).present();
+
+    await this.firestore.doc("usuarios/"+id).delete();
+    
+    (await loader).dismiss();
+  }
+
+  async deleteConfirm(id: string){
+    let alert = this.alertCtrl.create({
+      header: 'Eliminar registro',
+      message: 'Estas a punto de eliminar este registro <br> ¿Estás seguro?',
+      buttons: [
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.delete(id);
+          }
+        },
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'danger'
+        }
+      ]
+    });
+    (await alert).present();
   }
 
   showToast(message: string){
